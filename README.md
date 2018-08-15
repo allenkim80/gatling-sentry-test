@@ -53,3 +53,34 @@ If you want to run the gatling, need to input the command in your sbt console.
 `gatling:test` means it will run the gatling simulation in `src/test` folder.
 
 
+## Sentry configuration
+
+If you have your own Sentry, you can send error logs to your Sentry. 
+
+### Set up the dsn
+
+As you already know, For sending error logs to Sentry need to add Sentry configuration.
+
+```aidl
+// src/test/resources/sentry.properties
+dsn=                                // Add your Sentry project dsn  
+sample.rate=1
+#environment=local
+maxmessagelength=100000
+stacktrace.app.packages=com.github.allenkim80.gatling
+```
+
+### Enable gatling-sentry-extension
+
+If you want to use gatling-sentry-extension, you need to add this file for configurations.
+
+```aidl
+// /src/test/resources/application.conf
+sentry {
+  enable = true                 // Need to set `true`
+  enable = ${?SENTRY_ENABLE}    // If you add envrionment variable in your server, you can also set enable and disable.
+}
+```
+
+
+
